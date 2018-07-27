@@ -31,4 +31,4 @@ ENV LC_ALL en_US.UTF-8
 
 EXPOSE 18080
 EXPOSE 18081
-ENTRYPOINT ["/lokid/lokid", "--p2p-bind-ip=0.0.0.0", "--p2p-bind-port=18080", "--rpc-bind-ip=0.0.0.0", "--rpc-bind-port=18081", "--non-interactive", "--data-dir=/lokidata","--confirm-external-bind"]
+ENTRYPOINT ["/lokid/lokid", "--p2p-bind-ip=0.0.0.0", "--p2p-bind-port=18080", "--rpc-bind-ip=0.0.0.0", "--rpc-bind-port=18081", "--non-interactive", "--data-dir=/lokidata/.loki","--confirm-external-bind"]
