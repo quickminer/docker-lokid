@@ -1,6 +1,6 @@
 # Requires docker 17.05
 
-# Run sample docker run -it --name docker-lokid docker-lokid -v /lokid:/media/data01/lokid
+# Run sample docker run -it --name docker-lokid docker-lokid -v /lokidata:/media/data01/lokidata
 FROM ubuntu:16.04 as builder
 
 RUN DEBIAN_FRONTEND=noninteractive \
@@ -14,7 +14,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     export LANG=en_US.UTF-8
 
 # loki volume data
-VOLUME /lokid
+VOLUME /lokidata
 
 ## download && extrack & chmod
 RUN wget https://github.com/loki-project/loki/releases/download/0.2.0/loki-unix64-v0.2.0.zip -P /lokid && \
@@ -31,4 +31,4 @@ ENV LC_ALL en_US.UTF-8
 
 EXPOSE 18080
 EXPOSE 18081
-ENTRYPOINT ["/lokid/lokid", "--p2p-bind-ip=0.0.0.0", "--p2p-bind-port=18080", "--rpc-bind-ip=0.0.0.0", "--rpc-bind-port=18081", "--non-interactive", "--data-dir=/lokid/data","--confirm-external-bind"]
+ENTRYPOINT ["/lokid/lokid", "--p2p-bind-ip=0.0.0.0", "--p2p-bind-port=18080", "--rpc-bind-ip=0.0.0.0", "--rpc-bind-port=18081", "--non-interactive", "--data-dir=/lokidata","--confirm-external-bind"]
