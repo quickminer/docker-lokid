@@ -19,7 +19,7 @@ VOLUME /lokid
 ## download && extrack & chmod
 RUN wget https://github.com/loki-project/loki/releases/download/0.2.0/loki-unix64-v0.2.0.zip -P /lokid && \
     unzip /lokid/loki-unix64-v0.2.0.zip -d /lokid && \
-    chmod +x /lokid/*
+    chmod +x /lokid/lokid
 
 # Set ENV
 ENV LC_ALL en_US.UTF-8
