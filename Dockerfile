@@ -7,6 +7,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     apt-get update && \
     apt-get --no-install-recommends --yes install \
     language-pack-en-base \
+    ca-certificates \
     wget \
     unzip && \
     export LC_ALL=en_US.UTF-8 && \
