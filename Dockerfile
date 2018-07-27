@@ -17,16 +17,13 @@ RUN DEBIAN_FRONTEND=noninteractive \
 VOLUME /lokid
 
 ## download && extrack & chmod
-RUN mkdir /lokid && \
-    wget https://github.com/loki-project/loki/releases/download/0.2.0/loki-unix64-v0.2.0.zip -P /lokid && \
+RUN wget https://github.com/loki-project/loki/releases/download/0.2.0/loki-unix64-v0.2.0.zip -P /lokid && \
     unzip /lokid/loki-unix64-v0.2.0.zip -d /lokid && \
     chmod +x /lokid/*
 
 # Set ENV
 ENV LC_ALL en_US.UTF-8
 
-# loki volume data
-VOLUME /lokid
 
 # Generate your wallet via accessing the container and run:
 # cd /lokid
