@@ -1,6 +1,6 @@
 # Requires docker 17.05
 
-# Run sample docker run -it --name docker-lokid docker-lokid -v /lokidata:/media/data01/lokidata
+# Run sample docker run -d --name lokid -p 18081:18081 --mount type=bind,source=/media/data01/lokidata,target=/lokidata docker-lokid
 FROM ubuntu:16.04 as builder
 
 RUN DEBIAN_FRONTEND=noninteractive \
