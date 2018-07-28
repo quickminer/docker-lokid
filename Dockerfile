@@ -1,10 +1,11 @@
-# Multistage docker build, requires docker 17.05
+# Requires docker 17.05
 
-# builder stage
+# Run sample docker run -d --name lokid -p 18081:18081 --mount type=bind,source=/media/data01/lokidata,target=/lokidata docker-lokid
 FROM ubuntu:16.04 as builder
 
 RUN apt-get update && \
     apt-get --no-install-recommends --yes install \
+<<<<<<< HEAD
         ca-certificates \
         cmake \
         g++ \
@@ -91,6 +92,22 @@ RUN set -ex \
     && make \
     && make check \
     && make install
+=======
+    language-pack-en-base \
+    ca-certificates \
+    wget \
+    unzip && \
+    export LC_ALL=en_US.UTF-8 && \
+    export LANG=en_US.UTF-8
+
+# loki volume data
+VOLUME /lokidata
+
+## download && extrack & chmod
+RUN wget https://github.com/loki-project/loki/releases/download/0.2.0/loki-unix64-v0.2.0.zip -P /lokid && \
+    unzip /lokid/loki-unix64-v0.2.0.zip -d /lokid && \
+    chmod +x /lokid/lokid
+>>>>>>> wip
 
 WORKDIR /src
 COPY . .
@@ -114,15 +131,16 @@ RUN set -ex && \
 
 COPY --from=builder /src/build/release/bin/* /usr/local/bin/
 
-# Contains the blockchain
-VOLUME /root/.bitmonero
 
 # Generate your wallet via accessing the container and run:
-# cd /wallet
+# cd /lokid
 # loki-wallet-cli
-VOLUME /wallet
 
 EXPOSE 18080
 EXPOSE 18081
+<<<<<<< HEAD
 
 ENTRYPOINT ["lokid", "--p2p-bind-ip=0.0.0.0", "--p2p-bind-port=18080", "--rpc-bind-ip=0.0.0.0", "--rpc-bind-port=18081", "--non-interactive", "--confirm-external-bind"]
+=======
+ENTRYPOINT ["/lokid/lokid", "--p2p-bind-ip=0.0.0.0", "--p2p-bind-port=18080", "--rpc-bind-ip=0.0.0.0", "--rpc-bind-port=18081", "--non-interactive", "--data-dir=/lokidata/.loki","--confirm-external-bind"]
+>>>>>>> wip
