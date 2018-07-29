@@ -20,29 +20,6 @@ RUN wget https://github.com/loki-project/loki/releases/download/0.2.0/loki-unix6
     unzip /lokid/loki-unix64-v0.2.0.zip -d /lokid && \
     chmod +x /lokid/lokid
 
-WORKDIR /src
-COPY . .
-
-ARG NPROC
-RUN set -ex && \
-    rm -rf build && \
-    if [ -z "$NPROC" ] ; \
-    then make -j$(nproc) release-static ; \
-    else make -j$NPROC release-static ; \
-    fi
-
-# runtime stage
-FROM ubuntu:16.04
-
-RUN set -ex && \
-    apt-get update && \
-    apt-get --no-install-recommends --yes install ca-certificates && \
-    apt-get clean && \
-    rm -rf /var/lib/apt
-
-COPY --from=builder /src/build/release/bin/* /usr/local/bin/
-
-
 # Generate your wallet via accessing the container and run:
 # cd /lokid
 # loki-wallet-cli
